@@ -1,7 +1,5 @@
 import argparse
 import getpass
-import csv
-import sys
 import os
 from cpapi import APIClient, APIClientArgs
 from collections import Counter
@@ -15,8 +13,6 @@ argpar.add_argument("-m", "--management", required=False, default=os.getenv('MGM
                     help="The management server's IP address (In the case of a Multi-Domain Environment, use the IP address of the MDS domain).\nDefault: 127.0.0.1\nEnvironment variable: MGMT_CLI_MANAGEMENT")
 argpar.add_argument("--port", "--server-port", required=False, default=os.getenv('MGMT_CLI_PORT', 443),
                     help="The port of the management server\nDefault: 443\nEnvironment variable: MGMT_CLI_PORT")
-argpar.add_argument("-d", "--domain", required=False, default=os.getenv('MGMT_CLI_DOMAIN'),
-                    help="The name, uid or IP-address of the management domain\nEnvironment variable: MGMT_CLI_DOMAIN")
 argpar.add_argument("-g", "--globaldomain", required=False, default=os.getenv('MGMT_CLI_GDOMAIN',"Global"),
                     help="The name, uid or IP-address of the global domain\nEnvironment variable: MGMT_CLI_DOMAIN")
 
