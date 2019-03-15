@@ -21,24 +21,18 @@ def where_global_used(client,user,password,type_objects,domain):
     if login_res.success is False:
         print("Login failed: {}".format(login_res.error_message))
         exit(1)
-    # print(domain)
+
     counter = 0
     obj_counter= list()
     uid_list = list()
     for uid, details in type_objects.items():
         uid_list.append(uid)
-        # print(details)
+
     for obj in uid_list:
-        # print(obj)
-        counter +=1
-        # where_used = client.api_call("where-used",{'uid':obj})
-        # if where_used.data['used-directly']['total'] == 0:
-        #     print("Object with name: ",obj,"not used on domain",domain)
-        # if counter < 5:
         where_used = client.api_call("where-used", {'uid': obj})
         try:
             if where_used.data['used-directly']['total'] == 0:
-                # print("Object with name: ", type_objects[obj][0], "not used on domain", domain)
+
                 obj_counter.append(obj)
         except Exception as e:
             print(e,where_used.response())
@@ -49,22 +43,18 @@ def where_global_used(client,user,password,type_objects,domain):
 def main():
     # getting details from the user
     results = argpar.parse_args()
-    # print results
+
     api_server = results.management
     user = results.username
     password = results.password
     port = results.port
     gdomain = results.globaldomain
-    port = "443"
-
     if not user:
         user = input("Username:")
-
     if not api_server:
         api_server = input("Management IP:")
     if not password:
         password = getpass.getpass("Enter password: ")
-
     if not gdomain:
         gdomain = input("Global domain name:")
     client_args = APIClientArgs(server=api_server)
